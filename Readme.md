@@ -7,12 +7,14 @@
       <img width="128" height="128" alt="icon2" src="./resources/icon.png" />
     </td>
     <td><h1>Term.Everything❗</h1></td>
-    <td><a href="https://github.com/mmulet/term.everything/releases">Download the beta test now!</a></td>
+    <td><a href="#-native-linux-setup-no-docker-required">🚀 Native Setup</a></td>
+    <td><a href="./SETUP.md">📖 Setup Guide</a></td>
     <td><a href="./resources/HowIDidIt.md">HowIDidIt.md</a></td>
   </tr>
   <tr>
     <td></td>
     <td>Works on both x11 and Wayland host systems.</td>
+    <td><strong>No Docker Required!</strong></td>
     <td></td>
     <td></td>
   </tr>
@@ -74,6 +76,20 @@ With only a small amount hacking, it can run Doom (shareware episode)!
 >Don't know what Wayland is or just want to know more about how this works? Then, head over to [HowIDidIt.md](./resources/HowIDidIt.md) where I will explain how everything works in detail.
 
 ## Try it out!
+
+### 🚀 Native Linux Setup (No Docker Required!)
+**NEW**: Run natively on Linux, Debian, Kali and other distributions:
+
+```bash
+git clone https://github.com/deepsuthar496/term.everything.git
+cd term.everything
+./install.sh
+./term.everything firefox
+```
+
+📖 **[Complete Setup Guide](./SETUP.md)** - Detailed instructions for native installation
+
+### 📦 Pre-built Releases
 [Download the beta test now!](https://github.com/mmulet/term.everything/releases)
 
 ## Roadmap
@@ -87,7 +103,15 @@ Check out the [help file here](./resources/help.md) for a usage guide on how to 
 
 ## Contributing
 term.everything❗ is written in developer friendly [Typescript](https://www.typescriptlang.org/) using the [bun](https://bun.com/) engine, with a just a smidge of C++.
+
+### 🐳 Docker Development (Original Method)
 See [./Contributing.md](./Contributing.md).
+
+### 🖥️ Native Development (New Method)
+For native development without Docker:
+1. Run `./install.sh` to set up your development environment
+2. Use `./build-native.sh` to build the project
+3. See **[SETUP.md](./SETUP.md)** for detailed development instructions
 
 ## Legal:
 
