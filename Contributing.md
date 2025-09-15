@@ -1,9 +1,26 @@
 
 # Easy Distribute and hacking.
 
+## 🚀 NEW: Native Development (No Docker Required!)
+
+Want to develop without Docker? Use our new native setup:
+
+```bash
+# One-time setup
+./install.sh
+
+# Build and run
+./build-native.sh
+./term.everything firefox
+```
+
+See [SETUP.md](./SETUP.md) for complete native development instructions.
+
+## 🐳 Docker-based Development (Original Method)
+
 Want to change just a couple lines?
 
-The only dependency you need is `podman
+The only dependency you need is `podman`
 - [podman https://podman.io/docs/installation](https://podman.io/docs/installation) On ubuntu just use`sudo apt install podman`
 
 
