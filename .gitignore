@@ -28,3 +28,6 @@ resources/out/bunterm
 
 # Local build artifacts
 term.everything
+
+# Autotools generated files
+ltmain.sh
