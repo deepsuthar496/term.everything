@@ -176,7 +176,17 @@ You can even run GUI apps over SSH!
 
 ## 🐛 Troubleshooting
 
-### App doesn't open in terminal?
+### Quick Diagnosis
+Run the troubleshooting script to check your setup:
+```bash
+./troubleshoot.sh
+```
+
+This script will check all dependencies and provide specific recommendations for your system.
+
+### Common Issues
+
+#### App doesn't open in terminal?
 - Try closing existing windows of that application
 - Use `--support-old-apps` flag for older applications
 

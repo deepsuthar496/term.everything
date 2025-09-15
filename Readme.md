@@ -89,6 +89,8 @@ cd term.everything
 
 📖 **[Complete Setup Guide](./SETUP.md)** - Detailed instructions for native installation
 
+💡 **Having issues?** Run `./troubleshoot.sh` to diagnose problems quickly
+
 ### 📦 Pre-built Releases
 [Download the beta test now!](https://github.com/mmulet/term.everything/releases)
 
