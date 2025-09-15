@@ -19,11 +19,28 @@ void Draw_State::resize_chafa_info_if_needed(gint width_cells, gint height_cells
                                    height_cells,
                                    term_size.width_of_a_cell_in_pixels,
                                    term_size.height_of_a_cell_in_pixels,
-                                   session_type_is_x11);
+                                   session_type_is_x11,
+                                   enable_optimizations,
+                                   enable_preprocessing,
+                                   enable_dithering,
+                                   work_factor);
     }
 }
 
-Draw_State::Draw_State(bool session_type_is_x11) : session_type_is_x11(session_type_is_x11)
+Draw_State::Draw_State(bool session_type_is_x11) : session_type_is_x11(session_type_is_x11),
+                                                    enable_optimizations(true),
+                                                    enable_preprocessing(true),
+                                                    enable_dithering(true),
+                                                    work_factor(1.0)
+{
+}
+
+Draw_State::Draw_State(bool session_type_is_x11, bool enable_optimizations, bool enable_preprocessing, bool enable_dithering, double work_factor) 
+    : session_type_is_x11(session_type_is_x11),
+      enable_optimizations(enable_optimizations),
+      enable_preprocessing(enable_preprocessing),
+      enable_dithering(enable_dithering),
+      work_factor(work_factor)
 {
 }
 

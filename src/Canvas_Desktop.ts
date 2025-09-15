@@ -45,6 +45,19 @@ export class Canvas_Desktop {
     this.canvas = createCanvas(size.width, size.height);
 
     this.context = this.canvas.getContext("2d")!;
+    
+    // Configure canvas for higher quality rendering
+    this.context.imageSmoothingEnabled = true;
+    // Note: imageSmoothingQuality may not be available in all environments
+    if ('imageSmoothingQuality' in this.context) {
+      (this.context as any).imageSmoothingQuality = "high";
+    }
+    
+    // Set better text rendering if available
+    if ('textRenderingOptimization' in this.context) {
+      (this.context as any).textRenderingOptimization = "optimizeQuality";
+    }
+    
     Bun.file(icon)
       .arrayBuffer()
       .then(async (buffer) => {
@@ -84,7 +97,14 @@ export class Canvas_Desktop {
     }
 
     for (const [surface, texture] of sorted_surfaces) {
+      // Use high quality rendering for surface drawing
+      this.context.save();
+      this.context.imageSmoothingEnabled = true;
+      if ('imageSmoothingQuality' in this.context) {
+        (this.context as any).imageSmoothingQuality = "high";
+      }
       this.context.drawImage(texture, surface.position.x, surface.position.y);
+      this.context.restore();
     }
   };
 }
