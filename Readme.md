@@ -33,9 +33,23 @@ Behold as I play a [video game in a font](https://github.com/mmulet/font-game-en
 Check out [HowIDidIt.md](./resources/HowIDidIt.md)
 
 ## More Examples
-The quality of the window is limited to the number of rows and columns in your
-terminal. If you increase the resolution (ctrl - in alacritty, check your
-terminal) the quality will go up, (but performance may go down).
+The quality of the window is now much improved with the new high-quality rendering system.
+Default resolution has been increased to 1920x1080 with enhanced character sets and dithering
+for much better visual quality. You can further customize quality vs performance with:
+
+```bash
+# Maximum quality (slower but looks great)
+./term.everything --quality ultra firefox
+
+# Performance mode (faster for older systems)  
+./term.everything --quality low firefox
+
+# Custom resolution for your terminal
+./term.everything --virtual-monitor-size 2560x1440 firefox
+```
+
+If you increase the terminal resolution (ctrl - in alacritty, check your
+terminal) the quality will go up even further, (but performance may go down).
 
 Here I open up the Wing It! movie, and increase the quality until I get both
 a good frame rate and resolution:

@@ -48,7 +48,10 @@ export class Canvas_Desktop {
     
     // Configure canvas for higher quality rendering
     this.context.imageSmoothingEnabled = true;
-    this.context.imageSmoothingQuality = "high";
+    // Note: imageSmoothingQuality may not be available in all environments
+    if ('imageSmoothingQuality' in this.context) {
+      (this.context as any).imageSmoothingQuality = "high";
+    }
     
     // Set better text rendering if available
     if ('textRenderingOptimization' in this.context) {
@@ -97,7 +100,9 @@ export class Canvas_Desktop {
       // Use high quality rendering for surface drawing
       this.context.save();
       this.context.imageSmoothingEnabled = true;
-      this.context.imageSmoothingQuality = "high";
+      if ('imageSmoothingQuality' in this.context) {
+        (this.context as any).imageSmoothingQuality = "high";
+      }
       this.context.drawImage(texture, surface.position.x, surface.position.y);
       this.context.restore();
     }
