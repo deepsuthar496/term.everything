@@ -139,7 +139,12 @@ export interface C_Interop {
     height_cells: Cells;
   };
 
-  init_draw_state(session_type_is_x11: boolean): Draw_State;
+  init_draw_state(session_type_is_x11: boolean, quality_config?: {
+    workFactor: number;
+    enableDithering: boolean;
+    enablePreprocessing: boolean;
+    enableOptimizations: boolean;
+  }): Draw_State;
 }
 
 export enum Get_FD_Flags {

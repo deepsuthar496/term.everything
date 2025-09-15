@@ -6,9 +6,18 @@ import { set_virtual_monitor_size } from "./set_virtual_monitor_size.ts";
 import { parse_args } from "./parse_args.ts";
 import { start_xwayland_if_necessary } from "./start_xwayland_if_necessary.ts";
 import { spawn } from "child_process";
+import { parseQualityConfig, getFrameTimeFromFPS } from "./quality_config.ts";
 
 const args = await parse_args();
 set_virtual_monitor_size(args.values["virtual-monitor-size"]);
+
+// Parse quality configuration
+const qualityConfig = parseQualityConfig(
+  args.values["quality"],
+  args.values["work-factor"],
+  args.values["enable-dithering"],
+  args.values["fps"]
+);
 
 const command_args = args.positionals;
 
@@ -19,7 +28,8 @@ const terminal_window = new Terminal_Window(
   listener,
   args.values["hide-status-bar"],
   virtual_monitor_size,
-  will_show_app_right_at_startup
+  will_show_app_right_at_startup,
+  qualityConfig
 );
 
 listener.main_loop();

@@ -24,6 +24,7 @@ import { Canvas_Desktop } from "./Canvas_Desktop.ts";
 import { Status_Line } from "./Status_Line.ts";
 import { on_exit } from "./on_exit.ts";
 import { Display_Server_Type } from "./get_display_server_type.ts";
+import { QualityConfig, getFrameTimeFromFPS } from "./quality_config.ts";
 
 export type Cells = number & { __brand: "cells" };
 export type Pixels = number & { __brand: "pixels" };
@@ -81,14 +82,23 @@ export class Terminal_Window {
     public socket_listener: Wayland_Socket_Listener,
     public hide_status_bar: boolean,
     desktop_size: Pixel_Size,
-    will_show_app_right_at_startup: boolean
+    will_show_app_right_at_startup: boolean,
+    public qualityConfig: QualityConfig
   ) {
     this.canvas_desktop = new Canvas_Desktop(
       desktop_size,
       will_show_app_right_at_startup
     );
     this.virtual_monitor_size = desktop_size;
-    this.draw_state = c.init_draw_state(display_server_type.type === "x11");
+    this.draw_state = c.init_draw_state(display_server_type.type === "x11", {
+      workFactor: qualityConfig.workFactor,
+      enableDithering: qualityConfig.enableDithering,
+      enablePreprocessing: qualityConfig.enablePreprocessing,
+      enableOptimizations: qualityConfig.enableOptimizations,
+    });
+
+    // Set frame rate based on quality configuration
+    this.desired_frame_time_seconds = getFrameTimeFromFPS(qualityConfig.frameRate);
 
     process.stdin.setRawMode(true);
 
@@ -268,7 +278,7 @@ export class Terminal_Window {
     }
   };
 
-  desired_frame_time_seconds = 0.033; // 30 fps - balanced for quality and performance
+  desired_frame_time_seconds = 0.033; // Default 30 fps - will be overridden by quality config
   time_of_start_of_last_frame: number | null = null;
 
   // update_keys = (delta_time: number) => {

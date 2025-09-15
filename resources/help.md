@@ -64,7 +64,26 @@ Specifies the window manager for Xwayland. Default is:
 
 `--virtual-monitor-size <width>x<height>`  
 Sets the virtual monitor size in pixels (the display size for all apps). A
-small size is recommended to prevent performance issues. Default is 640x480.
+small size is recommended to prevent performance issues. Default is 1920x1080.
+
+`--quality <low|medium|high|ultra>`  
+Sets the rendering quality preset. Higher quality uses more CPU but looks better.
+- low: Fast rendering, basic symbols, 60fps
+- medium: Balanced quality and performance, 45fps
+- high: High quality rendering with all features, 30fps (default)
+- ultra: Maximum quality, 24fps
+
+`--work-factor <0.0-1.0>`  
+Fine-tune rendering quality vs performance (0.0=fastest, 1.0=highest quality).
+Overrides the quality preset work factor. Default varies by quality preset.
+
+`--enable-dithering / --no-enable-dithering`  
+Enable or disable color dithering for better color reproduction.
+Default is enabled for medium/high/ultra quality.
+
+`--fps <number>`  
+Set target frame rate (1-120). Higher values use more CPU.
+Overrides the quality preset frame rate.
 
 `--support-old-apps`  
 Alias for `--xwayland ":5 -retro" --xwayland-wm \

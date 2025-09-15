@@ -35,6 +35,20 @@ export const parse_args = async () => {
       "virtual-monitor-size": {
         type: "string",
       },
+      "quality": {
+        type: "string",
+        default: "high",
+      },
+      "work-factor": {
+        type: "string",
+      },
+      "enable-dithering": {
+        type: "boolean",
+        default: true,
+      },
+      "fps": {
+        type: "string",
+      },
 
       version: {
         type: "boolean",

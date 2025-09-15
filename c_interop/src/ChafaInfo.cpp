@@ -30,6 +30,29 @@ ChafaInfo::ChafaInfo(gint width_cells,
                                                  height_of_a_cell_in_pixels(height_of_a_cell_in_pixels),
                                                  session_type_is_x11(session_type_is_x11)
 {
+    // Use default high quality settings
+    init_chafa(true, true, true, 1.0);
+}
+
+ChafaInfo::ChafaInfo(gint width_cells,
+                     gint height_cells,
+                     gint width_of_a_cell_in_pixels,
+                     gint height_of_a_cell_in_pixels,
+                     bool session_type_is_x11,
+                     bool enable_optimizations,
+                     bool enable_preprocessing,
+                     bool enable_dithering,
+                     double work_factor) : width_cells(width_cells),
+                                          height_cells(height_cells),
+                                          width_of_a_cell_in_pixels(width_of_a_cell_in_pixels),
+                                          height_of_a_cell_in_pixels(height_of_a_cell_in_pixels),
+                                          session_type_is_x11(session_type_is_x11)
+{
+    init_chafa(enable_optimizations, enable_preprocessing, enable_dithering, work_factor);
+}
+
+void ChafaInfo::init_chafa(bool enable_optimizations, bool enable_preprocessing, bool enable_dithering, double work_factor)
+{
     {
         detect_terminal(&term_info, &mode, &pixel_mode);
 
@@ -65,19 +88,18 @@ ChafaInfo::ChafaInfo(gint width_cells,
         chafa_canvas_config_set_geometry(config, width_cells, height_cells);
         chafa_canvas_config_set_symbol_map(config, symbol_map);
         
-        /* Enable optimizations for better quality */
-        chafa_canvas_config_set_optimizations(config, TRUE);
+        /* Apply quality settings */
+        chafa_canvas_config_set_optimizations(config, enable_optimizations ? TRUE : FALSE);
+        chafa_canvas_config_set_work_factor(config, work_factor);
+        chafa_canvas_config_set_preprocessing_enabled(config, enable_preprocessing ? TRUE : FALSE);
         
-        /* Set work factor for better quality vs performance balance (1.0 = highest quality) */
-        chafa_canvas_config_set_work_factor(config, 1.0);
-        
-        /* Enable preprocessing for better image quality */
-        chafa_canvas_config_set_preprocessing_enabled(config, TRUE);
-        
-        /* Enable dithering for better color reproduction */
-        chafa_canvas_config_set_dither_mode(config, CHAFA_DITHER_MODE_DIFFUSION);
-        chafa_canvas_config_set_dither_grain_size(config, 4, 4);
-        chafa_canvas_config_set_dither_intensity(config, 1.0);
+        if (enable_dithering) {
+            chafa_canvas_config_set_dither_mode(config, CHAFA_DITHER_MODE_DIFFUSION);
+            chafa_canvas_config_set_dither_grain_size(config, 4, 4);
+            chafa_canvas_config_set_dither_intensity(config, 1.0);
+        } else {
+            chafa_canvas_config_set_dither_mode(config, CHAFA_DITHER_MODE_NONE);
+        }
 
         if (width_of_a_cell_in_pixels > 0 && height_of_a_cell_in_pixels > 0)
         {
