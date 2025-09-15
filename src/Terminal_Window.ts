@@ -268,7 +268,7 @@ export class Terminal_Window {
     }
   };
 
-  desired_frame_time_seconds = 0.016; // 60 fps
+  desired_frame_time_seconds = 0.033; // 30 fps - balanced for quality and performance
   time_of_start_of_last_frame: number | null = null;
 
   // update_keys = (delta_time: number) => {

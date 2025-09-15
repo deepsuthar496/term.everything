@@ -33,11 +33,28 @@ ChafaInfo::ChafaInfo(gint width_cells,
     {
         detect_terminal(&term_info, &mode, &pixel_mode);
 
-        /* Specify the symbols we want */
+        /* Specify the symbols we want for best quality */
 
         symbol_map = chafa_symbol_map_new();
-        // chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_BLOCK);
-        // chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_ASCII);
+        
+        /* Add multiple symbol sets for better quality rendering */
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_BLOCK);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_BORDER);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_SPACE);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_SOLID);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_STIPPLE);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_DIAGONAL);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_DOT);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_QUAD);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_HHALF);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_VHALF);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_HALF);
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_INVERTED);
+        
+        /* Add extra symbols for fine detail */
+        chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_EXTRA);
+        
+        /* Fallback to all symbols if needed */
         chafa_symbol_map_add_by_tags(symbol_map, CHAFA_SYMBOL_TAG_ALL);
 
         /* Set up a configuration with the symbols and the canvas size in characters */
@@ -47,10 +64,20 @@ ChafaInfo::ChafaInfo(gint width_cells,
         chafa_canvas_config_set_pixel_mode(config, pixel_mode);
         chafa_canvas_config_set_geometry(config, width_cells, height_cells);
         chafa_canvas_config_set_symbol_map(config, symbol_map);
-        // chafa_canvas_config_set_optimizations(config, TRUE);
-        chafa_canvas_config_set_work_factor(config, 0.0);
-        // chafa_canvas_config_set_preprocessing_enabled(config, FALSE);
-        // chafa_canvas_config_set_dither_intensity(config, CHAFA_DITHER_MODE_DIFFUSION);
+        
+        /* Enable optimizations for better quality */
+        chafa_canvas_config_set_optimizations(config, TRUE);
+        
+        /* Set work factor for better quality vs performance balance (1.0 = highest quality) */
+        chafa_canvas_config_set_work_factor(config, 1.0);
+        
+        /* Enable preprocessing for better image quality */
+        chafa_canvas_config_set_preprocessing_enabled(config, TRUE);
+        
+        /* Enable dithering for better color reproduction */
+        chafa_canvas_config_set_dither_mode(config, CHAFA_DITHER_MODE_DIFFUSION);
+        chafa_canvas_config_set_dither_grain_size(config, 4, 4);
+        chafa_canvas_config_set_dither_intensity(config, 1.0);
 
         if (width_of_a_cell_in_pixels > 0 && height_of_a_cell_in_pixels > 0)
         {
