@@ -89,7 +89,7 @@ void ChafaInfo::init_chafa(bool enable_optimizations, bool enable_preprocessing,
         chafa_canvas_config_set_symbol_map(config, symbol_map);
         
         /* Apply quality settings */
-        chafa_canvas_config_set_optimizations(config, enable_optimizations ? TRUE : FALSE);
+        chafa_canvas_config_set_optimizations(config, enable_optimizations ? CHAFA_OPTIMIZATION_ALL : CHAFA_OPTIMIZATION_NONE);
         chafa_canvas_config_set_work_factor(config, work_factor);
         chafa_canvas_config_set_preprocessing_enabled(config, enable_preprocessing ? TRUE : FALSE);
         
